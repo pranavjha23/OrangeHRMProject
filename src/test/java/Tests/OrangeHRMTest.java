@@ -14,6 +14,10 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.google.common.io.Files;
 
 import org.openqa.selenium.JavascriptExecutor;
@@ -22,10 +26,21 @@ import org.openqa.selenium.TakesScreenshot;
 
 public class OrangeHRMTest {
 	 WebDriver driver;
+	 ExtentReports extent;
+	 ExtentHtmlReporter htmlReporter;
 	 
-	 
+
+		@BeforeSuite
+		public void Setup() {
+			
+			htmlReporter = new ExtentHtmlReporter("extent2.html");
+		
+			extent=new ExtentReports();
+			extent.attachReporter(htmlReporter);
+	}
+			
 	 @BeforeTest 
-	    public void setup() {
+	    public void SetupTest() {
 	    	System.setProperty("webdriver.chrome.driver", "E:\\driver\\chromedriver-win32\\chromedriver-win32\\chromedriver.exe");
 	    	driver = new ChromeDriver();
 	    	driver.manage().window().maximize();
@@ -34,7 +49,9 @@ public class OrangeHRMTest {
 	 
 	   @Test(priority = 1)
 	    public void LoginTest() {
-	    			
+	    	
+		   ExtentTest Test1 = extent.createTest("Login Page");
+		   
 	    	driver.get("https://opensource-demo.orangehrmlive.com/");
 	    	driver.findElement(By.xpath("//input[@placeholder='Username']")).sendKeys("Admin");
 	    	driver.findElement(By.xpath("//input[@placeholder='Password']")).sendKeys("admin123");
@@ -145,6 +162,6 @@ public class OrangeHRMTest {
 		
 		@AfterSuite
 		public void Teardown() {
-		//	extent.flush();
+			extent.flush();
 	}
 }
