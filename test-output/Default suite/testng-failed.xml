@@ -5,7 +5,12 @@
     <classes>
       <class name="Tests.OrangeHRMTest">
         <methods>
-          <include name="setup"/>
+          <include name="TeardownTest"/>
+          <include name="Teardown"/>
+          <include name="Searcharea"/>
+          <include name="Myinfo"/>
+          <include name="Setup"/>
+          <include name="SetupTest"/>
           <include name="Directory"/>
         </methods>
       </class> <!-- Tests.OrangeHRMTest -->
